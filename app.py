@@ -15,7 +15,13 @@ if database_url.startswith('postgres://'):
 app.config.update(
     SQLALCHEMY_DATABASE_URI = database_url,
     SQLALCHEMY_TRACK_MODIFICATIONS = False,
-    SQLALCHEMY_ENGINE_OPTIONS = {'pool_pre_ping': True, 'pool_recycle': 300},
+    SQLALCHEMY_ENGINE_OPTIONS = {
+        'pool_pre_ping': True,
+        'pool_recycle': 300,
+        'pool_size': 2,
+        'max_overflow': 0,
+        'connect_args': {'sslmode': 'require'}
+    },
     MAX_CONTENT_LENGTH = 16 * 1024 * 1024,
     UPLOAD_FOLDER = '/tmp'
 )
